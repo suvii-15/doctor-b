@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI Medical Birthday Report ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:radial-gradient(circle at top,#1b2a41,#0f2027);
+  color:white;
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+/* Floating medical icons */
+.icon{
+  position:absolute;
+  font-size:2.2rem;
+  opacity:0.15;
+  animation:float 14s infinite ease-in-out;
+}
+.icon:nth-child(1){left:8%; top:75%;}
+.icon:nth-child(2){left:82%; top:65%;}
+.icon:nth-child(3){left:20%; top:12%;}
+.icon:nth-child(4){left:72%; top:18%;}
+
+@keyframes float{
+  0%{transform:translateY(0);}
+  50%{transform:translateY(-90px);}
+  100%{transform:translateY(0);}
+}
+
+/* Main card */
+.card{
+  background:rgba(255,255,255,0.08);
+  padding:40px;
+  border-radius:22px;
+  max-width:560px;
+  width:90%;
+  text-align:center;
+  box-shadow:0 25px 50px rgba(0,0,0,0.45);
+  backdrop-filter:blur(10px);
+}
+
+h1{
+  font-size:2rem;
+  margin-bottom:10px;
+}
+
+/* Heart rate */
+.heart-rate{
+  font-size:1.1rem;
+  color:#ffd6e0;
+  margin-bottom:15px;
+}
+
+/* ECG */
+.ecg{
+  width:100%;
+  height:60px;
+  margin:20px 0;
+}
+.ecg path{
+  fill:none;
+  stroke:#ff4d6d;
+  stroke-width:3;
+  stroke-dasharray:1000;
+  stroke-dashoffset:1000;
+  animation:ecgMove 2s linear infinite;
+}
+@keyframes ecgMove{
+  to{stroke-dashoffset:0;}
+}
+
+p{
+  font-size:1.1rem;
+  line-height:1.6;
+  min-height:90px;
+}
+
+/* Button */
+button{
+  margin-top:25px;
+  padding:14px 34px;
+  border:none;
+  border-radius:30px;
+  background:#e63946;
+  color:white;
+  font-size:1rem;
+  cursor:pointer;
+  transition:0.3s;
+}
+button:hover{
+  transform:scale(1.08);
+  background:#ff4d5a;
+}
+
+/* Prescription card */
+#prescription{
+  display:none;
+  margin-top:25px;
+  padding:20px;
+  border-radius:16px;
+  background:rgba(255,255,255,0.12);
+  text-align:left;
+  font-size:0.95rem;
+}
+#prescription h3{
+  text-align:center;
+  margin-top:0;
+  color:#ffd6e0;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Floating medical instruments -->
+<div class="icon">🩺</div>
+<div class="icon">💉</div>
+<div class="icon">💊</div>
+<div class="icon">🫀</div>
+
+<div class="card">
+  <h1>🔒 AI Medical Report</h1>
+
+  <div class="heart-rate">
+    Heart Rate: <span id="bpm">72</span> BPM 💓
+  </div>
+
+  <!-- ECG -->
+  <svg class="ecg" viewBox="0 0 500 100">
+    <path d="M0 50 
+             L80 50 
+             L100 20 
+             L120 80 
+             L140 50 
+             L200 50 
+             L220 35 
+             L240 65 
+             L260 50 
+             L500 50"/>
+  </svg>
+
+  <p id="message">
+    One doctor detected.<br>
+    Click below to start AI analysis.
+  </p>
+
+  <button onclick="nextStep()">Start Analysis</button>
+
+  <!-- Prescription -->
+  <div id="prescription">
+    <h3>🩺 Prescription of Love</h3>
+    <p>
+      <strong>Patient:</strong> <span id="docName1"></span> ❤️<br><br>
+      <strong>Medicine:</strong> Call & Text Him 📱<br>
+      <strong>Dosage:</strong> At least once a day (more allowed 😉)<br>
+      <strong>Side Effects:</strong> Smiling, peace, annoying happiness 😄<br><br>
+      <strong>Doctor’s Note:</strong><br>
+      Even superheroes get busy… just don’t forget the one who waits happily for you 💖
+    </p>
+  </div>
+
+</div>
+
+<script>
+// ✨ CHANGE NAME HERE ONLY ✨
+const doctorName = "Dr.SAHITHYA❤️"; // ← replace with her real name
+
+document.getElementById("docName1").innerText = doctorName;
+
+let step = 0;
+
+const messages = [
+  `Scanning heart rhythm… 🫀<br>Status: Beating slightly faster today.`,
+  `Checking kindness index… 🩺<br>Result: Rare. World needs more doctors like ${doctorName}.`,
+  `Reviewing communication logs… 📱<br>Observation: ${doctorName} saves lives, sometimes forgets to call one human.`,
+  `Diagnosis 💊<br>Busy doctor + silent phone = One AI student missing ${doctorName} deeply.`,
+  `💌 Gentle Reminder 💌<br>${doctorName}, if you’re seeing this, someone is already smiling… waiting for your call.`,
+  `🎉 FINAL REPORT 🎉<br><br><strong>${doctorName}, You Are My Safest Place ❤️</strong><br><br>You heal the world every day. Just don’t forget to check on me too.`
+];
+
+function nextStep(){
+  document.getElementById("message").innerHTML = messages[step];
+  step++;
+
+  if(step === 4){
+    document.getElementById("bpm").innerText = 96;
+  }
+
+  if(step === 5){
+    document.getElementById("prescription").style.display = "block";
+    document.querySelector("button").innerText = "📞 Call Him Today";
+  }
+
+  if(step === messages.length){
+    document.querySelector("button").disabled = true;
+  }
+}
+
+/* Heart rate animation */
+let bpm = 72;
+setInterval(()=>{
+  if(step < 4){
+    bpm = 70 + Math.floor(Math.random()*8);
+  }
+  document.getElementById("bpm").innerText = bpm;
+},1200);
+</script>
+
+</body>
+</html>
